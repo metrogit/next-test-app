@@ -14,17 +14,15 @@ import {
 
 const HeroSection = () => {
   return (
-    <section className="relative w-full bg-gradient-to-b from-background/90 to-background py-20">
-      {/* Contained blur effects */}
+    <section className="relative w-full bg-gradient-to-b from-background/90 to-background pt-20">
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        {/* Background elements */}
         <div className="absolute top-20 right-[10%] w-72 h-72 rounded-full bg-blue-500/30 blur-3xl"></div>
         <div className="absolute bottom-40 left-[5%] w-72 h-72 rounded-full bg-blue-500/30 blur-3xl"></div>
       </div>
-      
-      <div className="absolute inset-0 overflow-hidden opacity-60 pointer-events-none">
-        {/* Background elements */}
-      </div>
-      
+
+      <div className="absolute inset-0 overflow-hidden opacity-60 pointer-events-none"></div>
+
       <div className="container mx-auto px-4 relative z-10">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
           {/* Text Content */}
@@ -44,7 +42,8 @@ const HeroSection = () => {
             </h1>
 
             <p className="text-lg text-muted-foreground max-w-md text-md">
-              معامله، سرمایه‌گذاری و مدیریت ارزهای دیجیتال با پیشرفته‌ترین ابزارها و بالاترین امنیت در پلتفرم رمزارز
+              معامله، سرمایه‌گذاری و مدیریت ارزهای دیجیتال با پیشرفته‌ترین
+              ابزارها و بالاترین امنیت در پلتفرم رمزارز
             </p>
 
             <div className="flex flex-wrap gap-3 pt-2">
@@ -88,7 +87,7 @@ const HeroSection = () => {
                 </div>
               </Card>
 
-              <Card className="absolute bottom-0 right-10 p-4 flex items-center gap-3 shadow-lg w-48 border-primary/10 bg-card/95 backdrop-blur-sm">
+              <Card className="absolute bottom-10 right-30 p-4 flex items-center gap-3 shadow-lg w-48 border-primary/10 bg-card/95 backdrop-blur-sm">
                 <div className="rounded-full p-2 bg-primary/10">
                   <TrendingUpIcon className="h-5 w-5 text-primary" />
                 </div>

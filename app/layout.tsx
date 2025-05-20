@@ -2,9 +2,10 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import "./fonts.css";
-import { ThemeProvider } from "@/components/theme-provide";
+import { ThemeProvider } from "@/components/providers/theme-provide";
 import { Toaster } from "@/components/ui/sonner";
 import localFont from "next/font/local";
+import ReactQueryProvider from "@/components/providers/query-client-provider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -20,19 +21,19 @@ const iranYekan = localFont({
   variable: "--font-iran-yekan",
   src: [
     {
-      path: '../public/fonts/IRANYekanX-Regular.woff2',
-      weight: '400',
-      style: 'normal',
+      path: "../public/fonts/IRANYekanX-Regular.woff2",
+      weight: "400",
+      style: "normal",
     },
     {
-      path: '../public/fonts/IRANYekanX-Medium.woff2',
-      weight: '500',
-      style: 'normal',
+      path: "../public/fonts/IRANYekanX-Medium.woff2",
+      weight: "500",
+      style: "normal",
     },
     {
-      path: '../public/fonts/IRANYekanX-Bold.woff2',
-      weight: '700',
-      style: 'normal',
+      path: "../public/fonts/IRANYekanX-Bold.woff2",
+      weight: "700",
+      style: "normal",
     },
   ],
 });
@@ -58,7 +59,8 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          {children}
+          <ReactQueryProvider>{children}</ReactQueryProvider>
+
           <Toaster position="top-center" />
         </ThemeProvider>
       </body>
