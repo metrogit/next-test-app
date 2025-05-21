@@ -1,6 +1,7 @@
 import { CryptoCoin } from "@/lib/types/cryptocoins.d";
 import CryptoStatusCard from "@/components/sections/crypro-section/crypto-status-card";
 import { getCryptoList } from "@/lib/api-calls/crypto-calls";
+import FetchFailed from "@/components/error-components/fetch-failed";
 
 export default async function CryptocurrencyListSection({
   sortType,
@@ -10,6 +11,7 @@ export default async function CryptocurrencyListSection({
   
   // Server side data fetching and passing sortType to the table switcher
   const cryptoList = await getCryptoList(sortType);
+  if (cryptoList.status === "error") return <FetchFailed />;
 
   return (
     <section className="relative my-4">

@@ -11,7 +11,6 @@ import {
 } from "@/components/ui/card";
 import { FloatingLabelInput } from "@/components/ui/floating-label-input";
 import { useState } from "react";
-import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { Eye, EyeOff } from "lucide-react";
@@ -33,21 +32,18 @@ export function LoginForm({
     const password = formData.get("password") as string;
 
     try {
-      const result = await signIn("credentials", {
-        mobile,
-        password,
-        redirect: false,
+      const response = await fetch("/api/login", {
+        method: "POST",
+        body: JSON.stringify({ mobile, password }),
       });
+      if (!response.ok) {
+        throw new Error("خطایی رخ داد. لطفا مجددا تلاش کنید");
+      }
+      const data = await response.json();
 
-      if (result?.error) {
-        if (result.error.includes("نام کاربری یا کلمه عبور") || 
-            result.error.includes("WRONG_CREDENTIALS")) {
-          toast.error("نام کاربری یا کلمه عبور (پسورد) شما صحیح نمی باشد.");
-        } else {
-          toast.error(result.error);
-        }
-      } else if (result?.ok) {
-        toast.success("ورود موفقیت‌آمیز");
+      // 
+      if (data.success) {
+        
         router.push("/");
       }
     } catch (error) {
@@ -91,13 +87,19 @@ export function LoginForm({
                     type="button"
                     className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700 cursor-pointer"
                     onClick={() => setShowPassword(!showPassword)}
-                    aria-label={showPassword ? "Hide password" : "Show password"}
+                    aria-label={
+                      showPassword ? "Hide password" : "Show password"
+                    }
                   >
                     {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
                   </button>
                 </div>
               </div>
-              <Button type="submit" className="w-full h-10 cursor-pointer" disabled={isLoading}>
+              <Button
+                type="submit"
+                className="w-full h-10 cursor-pointer"
+                disabled={isLoading}
+              >
                 {isLoading ? "در حال ورود..." : "ورود"}
               </Button>
             </div>

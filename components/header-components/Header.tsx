@@ -2,10 +2,15 @@ import { ChevronDownIcon } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import HeaderMegaMenu from "./header-mega-menu";
+import UserStatus from "./user-status";
 
-export function Header() {
+export function Header({
+  userStatus,
+}: {
+  userStatus: "loggedIn" | "loggedOut";
+}) {
   return (
-    <header className="bg-background border-b z-30 sticky top-0 relative">
+    <header className="bg-background/50 backdrop-blur-sm border-b z-30 sticky top-0 relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16">
           {/* Logo */}
@@ -38,13 +43,13 @@ export function Header() {
               {/* Mega menu ------------------------------- */}
               <HeaderMegaMenu />
             </div>
-
-            <Link
-              href="/services"
-              className="px-3 py-2 text-gray-700 hover:text-blue-600 font-medium"
-            >
-              خدمات
-            </Link>
+              {userStatus === "loggedIn" ? (
+                <UserStatus />
+              ) : (
+                  <div>
+                    <Link href="/login" className="border font-medium border-blue-600 text-blue-600 px-4 py-2 rounded-md hover:bg-blue-50">ورود</Link>
+                  </div>
+              )}
           </div>
 
           {/* Mobile menu button and hamburger menu (CSS-only solution) */}
@@ -61,13 +66,13 @@ export function Header() {
             </label>
 
             {/* Mobile menu */}
-            <div className="hidden absolute top-16 left-0 right-0 bg-white/80 backdrop-blur-md shadow-md peer-checked:block z-50">
+            <div className="hidden absolute top-16 left-0 right-0 bg-white backdrop-blur-md shadow-md peer-checked:block z-50">
               <div className="px-2 pt-2 pb-3 space-y-1">
                 <Link
                   href="/"
                   className="block px-3 py-2 text-base font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50 rounded-md"
                 >
-                  Home
+                  خانه
                 </Link>
 
                 {/* Mobile Crypto dropdown with accordion-like behavior */}
@@ -81,21 +86,8 @@ export function Header() {
                     htmlFor="mobile-crypto-menu"
                     className="flex justify-between items-center text-base font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50 rounded-md cursor-pointer"
                   >
-                    About
-                    <svg
-                      className="w-4 h-4"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="2"
-                        d="M19 9l-7 7-7-7"
-                      ></path>
-                    </svg>
+                    رمز ارزها
+                    <ChevronDownIcon className="w-4 h-4" />
                   </label>
 
                   <div className="hidden mt-2 pl-4 peer-checked:block">
@@ -128,18 +120,16 @@ export function Header() {
                   </div>
                 </div>
 
-                <Link
-                  href="/services"
-                  className="block px-3 py-2 text-base font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50 rounded-md"
-                >
-                  Services
-                </Link>
-                <Link
-                  href="/contact"
-                  className="block px-3 py-2 text-base font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50 rounded-md"
-                >
-                  Contact
-                </Link>
+                {/* User Status for Mobile */}
+                {userStatus === "loggedIn" ? (
+                  <div className="block px-3 py-2">
+                    <UserStatus />
+                  </div>
+                ) : (
+                  <div className="block px-3 py-2">
+                    <Link href="/login" className="block text-base font-medium text-blue-600 hover:bg-blue-50 rounded-md">ورود</Link>
+                  </div>
+                )}
               </div>
             </div>
           </div>
